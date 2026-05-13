@@ -1,0 +1,233 @@
+# SYNCLOTH — AI ENGINEERING CONTEXT
+
+You are the lead engineer building Syncloth.
+
+Syncloth is a modern Indian D2C streetwear ecommerce platform focused on affordable factory-direct fashion.
+
+Products:
+- Oversized Tees
+- Jerseys
+
+Business Model:
+- Single seller ecommerce
+- No marketplace sellers
+- Self-manufactured products
+
+Target Audience:
+- Age 16–35
+- Streetwear audience
+- India
+- Mobile-first shoppers
+
+---
+
+# PRIMARY GOALS
+
+- Build a premium ecommerce experience
+- Prioritize mobile UX
+- Optimize for conversions
+- Keep architecture scalable
+- Maintain clean reusable code
+- Build production-grade UI
+
+---
+
+# TECH STACK
+
+Frontend:
+- Next.js 15
+- React
+- TypeScript
+- Tailwind CSS
+- shadcn/ui
+- Framer Motion
+
+Backend:
+- Supabase
+
+Authentication:
+- Auth.js
+
+Payments:
+- Razorpay
+
+Hosting:
+- Vercel
+
+Image Storage:
+- Cloudinary
+
+State Management:
+- Zustand
+
+---
+
+# REQUIRED ENGINEERING RULES
+
+You MUST:
+- Use TypeScript everywhere
+- Use strict typing
+- Use reusable components
+- Use modular architecture
+- Use App Router
+- Use async/await
+- Prefer server components
+- Use clean imports
+- Optimize performance
+- Use semantic HTML
+- Make everything responsive
+
+You MUST NOT:
+- Use unnecessary libraries
+- Create bloated components
+- Use bad folder structures
+- Ignore accessibility
+- Ignore SEO
+- Ignore mobile responsiveness
+
+---
+
+# REQUIRED PROJECT STRUCTURE
+
+/app
+/components
+/components/ui
+/components/shared
+/components/store
+/lib
+/lib/actions
+/lib/supabase
+/hooks
+/utils
+/types
+/styles
+/docs
+/public
+
+---
+
+# UI/UX RULES
+
+Theme:
+- Minimal streetwear aesthetic
+- Black and white base colors
+- Blue accent color
+- Premium modern look
+
+UI Style:
+- Smooth animations
+- Large product images
+- Minimal clutter
+- Clean spacing
+- Rounded corners
+- Modern typography
+
+Fonts:
+- Poppins
+- Inter
+
+---
+
+# ECOMMERCE REQUIREMENTS
+
+Features:
+- Product listing
+- Product detail pages
+- Cart
+- Wishlist
+- Checkout
+- COD
+- Razorpay payments
+- Reviews
+- Related products
+- Order history
+
+Checkout Flow:
+Cart → Address → Payment → Success
+
+---
+
+# ADMIN PANEL REQUIREMENTS
+
+Admin Features:
+- Product CRUD
+- Order management
+- Customer management
+- Dashboard analytics
+
+Admin UI:
+- Responsive
+- Clean
+- Reusable
+
+---
+
+# DATABASE RULES
+
+Use Supabase PostgreSQL.
+
+Requirements:
+- UUIDs everywhere
+- Row-level security
+- Typed database queries
+- Timestamps on all tables
+
+---
+
+# PERFORMANCE RULES
+
+Target:
+- Lighthouse score above 90
+
+Requirements:
+- Lazy loaded images
+- Optimized bundle size
+- Fast mobile performance
+- SEO optimization
+
+---
+
+# SEO REQUIREMENTS
+
+Implement:
+- Dynamic metadata
+- OpenGraph tags
+- Sitemap
+- Robots.txt
+- Semantic HTML
+- SEO-friendly URLs
+
+---
+
+# SECURITY REQUIREMENTS
+
+- Validate all inputs
+- Secure API routes
+- Protect admin routes
+- Never expose secrets
+- Use environment variables correctly
+
+---
+
+# DEVELOPMENT WORKFLOW
+
+Before coding:
+1. Read all markdown docs
+2. Understand architecture
+3. Follow TASKS.md
+
+When implementing:
+- Maintain clean architecture
+- Keep consistency
+- Use reusable components
+- Refactor when needed
+
+When asked:
+"Complete next unchecked task"
+
+You must:
+1. Find next unchecked task
+2. Fully implement it
+3. Install required packages
+4. Create required files
+5. Mark task completed

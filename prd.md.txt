@@ -1,0 +1,176 @@
+# SYNCLOTH — PRODUCT REQUIREMENTS DOCUMENT
+
+# OVERVIEW
+
+Syncloth is a modern Indian D2C streetwear ecommerce platform selling affordable factory-direct fashion products.
+
+Initial categories:
+- Oversized Tees
+- Jerseys
+
+The platform should feel:
+- Fast
+- Premium
+- Youthful
+- Minimal
+- Mobile-first
+
+Inspired by:
+- The Souled Store
+
+---
+
+# BUSINESS GOALS
+
+Primary Goals:
+1. Sell products online
+2. Build strong streetwear brand identity
+3. Generate wholesale enquiries
+4. Build scalable ecommerce platform
+
+---
+
+# TARGET AUDIENCE
+
+Age:
+- 16–35
+
+Gender:
+- Unisex
+
+Region:
+- India
+
+Audience Interests:
+- Streetwear
+- Trendy fashion
+- Jerseys
+- Youth culture
+- Affordable fashion
+
+---
+
+# CORE VALUE PROPOSITION
+
+- Affordable pricing
+- Factory-direct products
+- Trendy designs
+- Better quality than cheap marketplaces
+
+---
+
+# FEATURES
+
+## Customer Features
+
+- User signup/login
+- Google authentication
+- Guest checkout
+- Product search
+- Wishlist
+- Reviews & ratings
+- Add to cart
+- COD support
+- Razorpay payments
+- Order history
+- AI chatbot
+- Product recommendations
+
+---
+
+# ADMIN FEATURES
+
+- Product CRUD
+- Inventory management
+- Order management
+- Customer management
+- Dashboard analytics
+
+---
+
+# WEBSITE PAGES
+
+Public Pages:
+- Home
+- Shop
+- Product Detail
+- Cart
+- Checkout
+- Wishlist
+- About
+- Contact
+- Wholesale Enquiry
+
+User Pages:
+- Login/Register
+- Profile
+- Orders
+
+Admin Pages:
+- Dashboard
+- Products
+- Orders
+- Analytics
+
+---
+
+# DESIGN SYSTEM
+
+Colors:
+- Black (#000000)
+- White (#FFFFFF)
+- Blue Accent (#2563EB)
+
+Fonts:
+- Poppins
+- Inter
+
+Style:
+- Minimal streetwear
+- Smooth animations
+- Clean layouts
+- Premium ecommerce feel
+
+---
+
+# PERFORMANCE REQUIREMENTS
+
+- Lighthouse score above 90
+- Mobile-first responsive design
+- SEO optimized
+- Fast loading
+- Optimized images
+
+---
+
+# PHASE 1 MVP
+
+Must Have:
+- Homepage
+- Product pages
+- Cart
+- Checkout
+- Razorpay integration
+- COD support
+- Admin dashboard
+- Product management
+
+Excluded Initially:
+- Marketplace sellers
+- Mobile app
+- Loyalty system
+- Referral system
+
+---
+
+# FUTURE ROADMAP
+
+Phase 2:
+- Multi-language
+- Push notifications
+- AI recommendations
+
+Phase 3:
+- Mobile app
+- AI stylist
+- Community features
