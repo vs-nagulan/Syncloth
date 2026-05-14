@@ -13,28 +13,60 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const code = searchParams.get("code");
   const nextRaw = searchParams.get("next");
-  const next = safeInternalPath(nextRaw, "/profile");
+  const admin = searchParams.get("admin") === "true";
+  const next = safeInternalPath(nextRaw, admin ? "/admin/dashboard" : "/profile");
 
-  if (code) {
-    const cookieStore = await cookies();
-    const supabase = createServerClient(url, key, {
-      cookies: {
-        getAll() {
-          return cookieStore.getAll();
-        },
-        setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value, options }) => {
-            cookieStore.set(name, value, options);
-          });
-        },
+  if (!code) {
+    return NextResponse.redirect(new URL("/login?error=auth_callback", request.url));
+  }
+
+  const cookieStore = await cookies();
+  const supabase = createServerClient(url, key, {
+    cookies: {
+      getAll() {
+        return cookieStore.getAll();
       },
-    });
+      setAll(cookiesToSet) {
+        cookiesToSet.forEach(({ name, value, options }) => {
+          cookieStore.set(name, value, options);
+        });
+      },
+    },
+  });
 
-    const { error } = await supabase.auth.exchangeCodeForSession(code);
-    if (!error) {
-      return NextResponse.redirect(new URL(next, request.url));
+  const { data, error } = await supabase.auth.exchangeCodeForSession(code);
+  if (error || !data.session) {
+    return NextResponse.redirect(new URL("/login?error=auth_callback", request.url));
+  }
+
+  const user = data.user;
+  if (!user) {
+    return NextResponse.redirect(new URL("/login?error=auth_callback", request.url));
+  }
+
+  await supabase.from("profiles").upsert(
+    {
+      id: user.id,
+      email: user.email,
+      full_name:
+        (user.user_metadata as { full_name?: string })?.full_name ||
+        user.email ||
+        "",
+    },
+    { onConflict: "id", ignoreDuplicates: false },
+  );
+
+  if (admin) {
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("role")
+      .eq("id", user.id)
+      .single();
+
+    if (!profile || profile.role !== "admin") {
+      return NextResponse.redirect(new URL("/admin/login?error=not_admin", request.url));
     }
   }
 
-  return NextResponse.redirect(new URL("/login?error=auth_callback", request.url));
+  return NextResponse.redirect(new URL(next, request.url));
 }

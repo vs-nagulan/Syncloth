@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { demoOrders } from "@/data/demo-orders";
 
 export const metadata: Metadata = {
   title: "Admin — Dashboard",
@@ -36,6 +37,57 @@ export default function AdminDashboardPage() {
             <p className="mt-1 text-xs text-muted">{k.hint}</p>
           </div>
         ))}
+      </div>
+      <div className="mt-12">
+        <h2 className="text-lg font-semibold text-foreground">Recent Orders</h2>
+        <div className="mt-4 overflow-hidden rounded-lg border border-border bg-surface">
+          <table className="w-full">
+            <thead className="border-b border-border bg-muted/50">
+              <tr>
+                <th className="px-4 py-3 text-left text-sm font-medium text-muted">
+                  Order ID
+                </th>
+                <th className="px-4 py-3 text-left text-sm font-medium text-muted">
+                  Customer
+                </th>
+                <th className="px-4 py-3 text-left text-sm font-medium text-muted">
+                  Total
+                </th>
+                <th className="px-4 py-3 text-left text-sm font-medium text-muted">
+                  Status
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {demoOrders.map((order) => (
+                <tr key={order.id} className="border-b border-border last:border-b-0">
+                  <td className="px-4 py-3 text-sm text-foreground">
+                    #{order.id}
+                  </td>
+                  <td className="px-4 py-3 text-sm text-foreground">
+                    {order.customer}
+                  </td>
+                  <td className="px-4 py-3 text-sm text-foreground">
+                    {order.total}
+                  </td>
+                  <td className="px-4 py-3 text-sm">
+                    <span
+                      className={`inline-flex items-center rounded-full px-2 py-1 text-xs font-medium ${
+                        order.status === "Paid"
+                          ? "bg-green-100 text-green-800"
+                          : order.status === "COD"
+                          ? "bg-yellow-100 text-yellow-800"
+                          : "bg-blue-100 text-blue-800"
+                      }`}
+                    >
+                      {order.status}
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

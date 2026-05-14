@@ -22,7 +22,9 @@ export async function getSessionUser(): Promise<SessionUser | null> {
 
     const { data: profile, error: profileError } = await supabase
       .from("profiles")
-      .select("id, email, full_name, role, created_at")
+      .select(
+        "id, email, full_name, phone, addresses, role, created_at",
+      )
       .eq("id", user.id)
       .maybeSingle();
 

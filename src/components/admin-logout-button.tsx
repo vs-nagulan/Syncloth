@@ -1,8 +1,10 @@
 "use client";
 
+import { signOut } from "@/lib/auth/client";
+
 export function AdminLogoutButton() {
   async function logout() {
-    await fetch("/api/admin/logout", { method: "POST" });
+    await signOut();
     window.location.href = "/admin/login";
   }
 
