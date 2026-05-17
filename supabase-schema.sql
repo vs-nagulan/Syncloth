@@ -12,6 +12,7 @@ create table if not exists public.products (
   rating numeric not null default 4.5,
   review_count integer not null default 0,
   badge text,
+  image_url text,
   created_at timestamptz not null default now()
 );
 

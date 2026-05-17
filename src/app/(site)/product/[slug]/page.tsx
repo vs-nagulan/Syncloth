@@ -43,19 +43,27 @@ export default async function ProductPage({ params }: Props) {
 
       <div className="mt-8 grid gap-10 lg:grid-cols-2 lg:gap-14">
         <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border border-border bg-gradient-to-br from-blue-50 via-surface to-red-50/40 shadow-sm">
+          {product.imageUrl ? (
+            <img
+              src={product.imageUrl}
+              alt={product.name}
+              className="h-full w-full object-cover object-center"
+            />
+          ) : (
+            <div className="flex h-full flex-col items-center justify-center p-8 text-center">
+              <p className="font-[family-name:var(--font-poppins)] text-2xl font-bold text-foreground sm:text-3xl">
+                {product.name}
+              </p>
+              <p className="mt-2 text-sm uppercase tracking-widest text-muted">
+                {product.category}
+              </p>
+            </div>
+          )}
           {product.badge && (
             <span className="absolute left-4 top-4 rounded-full bg-brand-red px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white shadow">
               {product.badge}
             </span>
           )}
-          <div className="flex h-full flex-col items-center justify-center p-8 text-center">
-            <p className="font-[family-name:var(--font-poppins)] text-2xl font-bold text-foreground sm:text-3xl">
-              {product.name}
-            </p>
-            <p className="mt-2 text-sm uppercase tracking-widest text-muted">
-              {product.category}
-            </p>
-          </div>
         </div>
 
         <div>

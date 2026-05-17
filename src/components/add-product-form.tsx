@@ -8,6 +8,7 @@ export function AddProductForm() {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [imageFile, setImageFile] = useState<File | null>(null);
   const [name, setName] = useState("");
   const [slug, setSlug] = useState("");
   const [category, setCategory] = useState<"Oversized Tees" | "Jerseys">(
@@ -18,6 +19,23 @@ export function AddProductForm() {
   const [highlights, setHighlights] = useState("");
   const [badge, setBadge] = useState("");
 
+  async function uploadImage(file: File) {
+    const formData = new FormData();
+    formData.append("file", file);
+
+    const uploadResponse = await fetch("/api/admin/product-image", {
+      method: "POST",
+      body: formData,
+    });
+
+    const uploadData = await uploadResponse.json();
+    if (!uploadResponse.ok || typeof uploadData.url !== "string") {
+      throw new Error(uploadData.error || "Image upload failed");
+    }
+
+    return uploadData.url as string;
+  }
+
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
@@ -27,6 +45,23 @@ export function AddProductForm() {
       .split(",")
       .map((s) => s.trim())
       .filter(Boolean);
+
+    let imageUrl: string | undefined;
+
+    try {
+      if (imageFile) {
+        imageUrl = await uploadImage(imageFile);
+      }
+    } catch (uploadError) {
+      setLoading(false);
+      setError(
+        uploadError instanceof Error
+          ? uploadError.message
+          : "Failed to upload image",
+      );
+      return;
+    }
+
     const res = await fetch("/api/admin/products", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -38,6 +73,7 @@ export function AddProductForm() {
         description,
         highlights: hl,
         badge: badge || undefined,
+        imageUrl,
       }),
     });
     setLoading(false);
@@ -47,6 +83,7 @@ export function AddProductForm() {
       return;
     }
     setOpen(false);
+    setImageFile(null);
     setName("");
     setSlug("");
     setPriceINR("");
@@ -151,6 +188,23 @@ export function AddProductForm() {
                   className="mt-1 w-full rounded-xl border border-border bg-surface px-3 py-2 text-foreground outline-none ring-accent/30 focus:ring-2"
                 />
               </label>
+              <label className="block text-sm">
+                <span className="text-muted">Product image (optional)</span>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => {
+                    const file = e.target.files?.[0] ?? null;
+                    setImageFile(file);
+                  }}
+                  className="mt-1 block w-full text-sm text-foreground file:mr-4 file:rounded-full file:border-0 file:bg-accent file:px-3 file:py-2 file:text-sm file:font-semibold file:text-white"
+                />
+              </label>
+              {imageFile && (
+                <p className="text-xs text-muted">
+                  Selected file: {imageFile.name}
+                </p>
+              )}
               <label className="block text-sm">
                 <span className="text-muted">Badge (optional)</span>
                 <input

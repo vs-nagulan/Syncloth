@@ -40,6 +40,12 @@ export function mapDbRow(row: Record<string, unknown>): Product | null {
     typeof row.badge === "string" && row.badge.length > 0
       ? row.badge
       : undefined;
+  const imageUrl =
+    typeof row.image_url === "string" && row.image_url.length > 0
+      ? row.image_url
+      : typeof row.imageUrl === "string" && row.imageUrl.length > 0
+      ? row.imageUrl
+      : undefined;
   const description =
     typeof row.description === "string"
       ? row.description
@@ -57,6 +63,7 @@ export function mapDbRow(row: Record<string, unknown>): Product | null {
     rating: Number.isFinite(rating) ? rating : 4.5,
     reviewCount: Number.isFinite(reviewCount) ? reviewCount : 0,
     badge,
+    imageUrl,
   };
 }
 

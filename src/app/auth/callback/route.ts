@@ -57,14 +57,26 @@ export async function GET(request: Request) {
   );
 
   if (admin) {
-    const { data: profile } = await supabase
-      .from("profiles")
-      .select("role")
-      .eq("id", user.id)
-      .single();
+    const devDebugEnabled = process.env.NEXT_PUBLIC_ENABLE_ADMIN_DEBUG === "true";
+    const devAdminEmails = (process.env.NEXT_PUBLIC_DEV_ADMIN_EMAILS || "")
+      .split(",")
+      .map((s) => s.trim().toLowerCase())
+      .filter(Boolean);
 
-    if (!profile || profile.role !== "admin") {
-      return NextResponse.redirect(new URL("/admin/login?error=not_admin", request.url));
+    // Allow a development bypass: when debug is enabled and the signed-in
+    // user's email is in NEXT_PUBLIC_DEV_ADMIN_EMAILS, treat them as admin.
+    if (devDebugEnabled && user.email && devAdminEmails.includes(user.email.toLowerCase())) {
+      // proceed without role check (dev-only shortcut)
+    } else {
+      const { data: profile } = await supabase
+        .from("profiles")
+        .select("role")
+        .eq("id", user.id)
+        .single();
+
+      if (!profile || profile.role !== "admin") {
+        return NextResponse.redirect(new URL("/admin/login?error=not_admin", request.url));
+      }
     }
   }
 

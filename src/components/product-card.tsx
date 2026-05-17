@@ -11,21 +11,36 @@ export function ProductCard({ product }: Props) {
     <article className="group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-page shadow-sm transition hover:border-accent/50 hover:shadow-md">
       <Link
         href={`/product/${product.slug}`}
-        className="block aspect-[4/5] bg-gradient-to-br from-blue-50 via-surface to-red-50/30"
+        className="block aspect-[4/5] overflow-hidden rounded-t-2xl bg-gradient-to-br from-blue-50 via-surface to-red-50/30"
       >
-        <div className="flex h-full flex-col items-center justify-center p-6 text-center">
-          {product.badge && (
-            <span className="mb-3 rounded-full bg-brand-red px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white shadow">
-              {product.badge}
+        {product.imageUrl ? (
+          <div className="relative h-full w-full">
+            <img
+              src={product.imageUrl}
+              alt={product.name}
+              className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.02]"
+            />
+            {product.badge && (
+              <span className="absolute left-4 top-4 rounded-full bg-brand-red px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white shadow">
+                {product.badge}
+              </span>
+            )}
+          </div>
+        ) : (
+          <div className="flex h-full flex-col items-center justify-center p-6 text-center">
+            {product.badge && (
+              <span className="mb-3 rounded-full bg-brand-red px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white shadow">
+                {product.badge}
+              </span>
+            )}
+            <span className="font-[family-name:var(--font-poppins)] text-lg font-semibold text-foreground transition group-hover:text-accent sm:text-xl">
+              {product.name}
             </span>
-          )}
-          <span className="font-[family-name:var(--font-poppins)] text-lg font-semibold text-foreground transition group-hover:text-accent sm:text-xl">
-            {product.name}
-          </span>
-          <span className="mt-2 text-xs uppercase tracking-widest text-muted">
-            {product.category}
-          </span>
-        </div>
+            <span className="mt-2 text-xs uppercase tracking-widest text-muted">
+              {product.category}
+            </span>
+          </div>
+        )}
       </Link>
       <div className="flex flex-1 flex-col gap-3 border-t border-border p-4 sm:p-5">
         <div className="flex items-baseline justify-between gap-2">

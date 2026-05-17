@@ -41,16 +41,25 @@ export async function middleware(request: NextRequest) {
       return appendCookies(NextResponse.redirect(url), response);
     }
 
-    const { data: profile } = await supabase
-      .from("profiles")
-      .select("role")
-      .eq("id", user.id)
-      .single();
+    const devDebugEnabled = process.env.NEXT_PUBLIC_ENABLE_ADMIN_DEBUG === "true";
+    const devAdminEmails = (process.env.NEXT_PUBLIC_DEV_ADMIN_EMAILS || "")
+      .split(",")
+      .map((s) => s.trim().toLowerCase())
+      .filter(Boolean);
 
-    if (!profile || profile.role !== "admin") {
-      const url = new URL("/admin/login", request.url);
-      url.searchParams.set("error", "not_admin");
-      return appendCookies(NextResponse.redirect(url), response);
+    // If dev bypass is enabled and user's email is in the dev list, skip role check.
+    if (!(devDebugEnabled && user?.email && devAdminEmails.includes(user.email.toLowerCase()))) {
+      const { data: profile } = await supabase
+        .from("profiles")
+        .select("role")
+        .eq("id", user.id)
+        .single();
+
+      if (!profile || profile.role !== "admin") {
+        const url = new URL("/admin/login", request.url);
+        url.searchParams.set("error", "not_admin");
+        return appendCookies(NextResponse.redirect(url), response);
+      }
     }
 
     return response;
@@ -93,6 +102,17 @@ export async function middleware(request: NextRequest) {
     const safeRedirect = safeInternalPath(redirectParam, "/profile");
 
     if (safeRedirect.startsWith("/admin")) {
+      const devDebugEnabled = process.env.NEXT_PUBLIC_ENABLE_ADMIN_DEBUG === "true";
+      const devAdminEmails = (process.env.NEXT_PUBLIC_DEV_ADMIN_EMAILS || "")
+        .split(",")
+        .map((s) => s.trim().toLowerCase())
+        .filter(Boolean);
+
+      if (devDebugEnabled && user?.email && devAdminEmails.includes(user.email.toLowerCase())) {
+        const target = safeRedirect === "/admin" ? "/admin/dashboard" : safeRedirect;
+        return appendCookies(NextResponse.redirect(new URL(target, request.url)), response);
+      }
+
       const { data: profile } = await supabase
         .from("profiles")
         .select("role")

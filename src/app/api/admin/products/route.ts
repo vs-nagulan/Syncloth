@@ -9,6 +9,7 @@ type Body = {
   description?: string;
   highlights?: string[];
   badge?: string;
+  imageUrl?: string;
 };
 
 export async function POST(request: Request) {
@@ -17,7 +18,7 @@ export async function POST(request: Request) {
     return NextResponse.json(
       {
         error:
-          "Supabase not configured. Set NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY.",
+          "Supabase service role not configured correctly. Set NEXT_PUBLIC_SUPABASE_URL and a valid SUPABASE_SERVICE_ROLE_KEY different from the anon key.",
       },
       { status: 503 },
     );
@@ -45,8 +46,7 @@ export async function POST(request: Request) {
   }
 
   const highlights = Array.isArray(body.highlights) ? body.highlights : [];
-
-  const { error } = await sb.from("products").insert({
+  const insertPayload: Record<string, unknown> = {
     slug: body.slug.trim().toLowerCase().replace(/\s+/g, "-"),
     name: body.name.trim(),
     category: body.category,
@@ -56,9 +56,30 @@ export async function POST(request: Request) {
     rating: 4.5,
     review_count: 0,
     badge: body.badge?.trim() || null,
-  });
+  };
+
+  if (body.imageUrl?.trim()) {
+    insertPayload.image_url = body.imageUrl.trim();
+  }
+
+  const { error } = await sb.from("products").insert(insertPayload);
 
   if (error) {
+    const missingColumn =
+      /image_url.*schema cache|Could not find the 'image_url' column/i.test(
+        error.message,
+      );
+
+    if (missingColumn) {
+      return NextResponse.json(
+        {
+          error:
+            "Database schema is missing the products.image_url column. Add it with: ALTER TABLE products ADD COLUMN image_url text;",
+        },
+        { status: 500 },
+      );
+    }
+
     return NextResponse.json({ error: error.message }, { status: 400 });
   }
 

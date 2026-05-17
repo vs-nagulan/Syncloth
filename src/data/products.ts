@@ -9,6 +9,7 @@ export type Product = {
   rating: number;
   reviewCount: number;
   badge?: string;
+  imageUrl?: string;
 };
 
 export const products: Product[] = [
