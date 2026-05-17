@@ -1,3 +1,4 @@
+import { notFound } from "next/navigation";
 import { createServerSupabaseClient } from "@/lib/supabase/server";
 
 export default async function AdminDebugPage() {
@@ -6,7 +7,7 @@ export default async function AdminDebugPage() {
     process.env.NEXT_PUBLIC_ENABLE_ADMIN_DEBUG === "true";
 
   if (!enabled) {
-    return new Response("Not found", { status: 404 });
+    notFound();
   }
 
   const supabase = await createServerSupabaseClient();

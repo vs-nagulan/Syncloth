@@ -1,0 +1,35 @@
+
+> syncloth@0.1.0 build
+> next build
+
+   ▲ Next.js 15.5.18
+   - Environments: .env.local
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 6.1s
+   Linting and checking validity of types ...
+
+./src/components/product-card.tsx
+18:13  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./src/lib/supabase/middleware.ts
+27:12  Warning: 'error' is defined but never used.  @typescript-eslint/no-unused-vars
+
+info  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/app/api-reference/config/eslint#disabling-rules
+Failed to compile.
+
+./src/lib/admin-token.ts:70:45
+Type error: Argument of type 'Uint8Array<ArrayBufferLike>' is not assignable to parameter of type 'BufferSource'.
+  Type 'Uint8Array<ArrayBufferLike>' is not assignable to type 'ArrayBufferView<ArrayBuffer>'.
+    Types of property 'buffer' are incompatible.
+      Type 'ArrayBufferLike' is not assignable to type 'ArrayBuffer'.
+        Type 'SharedArrayBuffer' is missing the following properties from type 'ArrayBuffer': resizable, resize, detached, transfer, transferToFixedLength
+
+[0m [90m 68 |[39m     [36mconst[39m key [33m=[39m [36mawait[39m hmacKey(secret)[33m;[39m
+ [90m 69 |[39m     [36mconst[39m expected [33m=[39m [36mnew[39m [33mUint8Array[39m(
+[31m[1m>[22m[39m[90m 70 |[39m       [36mawait[39m crypto[33m.[39msubtle[33m.[39msign([32m"HMAC"[39m[33m,[39m key[33m,[39m payloadBytes)[33m,[39m
+ [90m    |[39m                                             [31m[1m^[22m[39m
+ [90m 71 |[39m     )[33m;[39m
+ [90m 72 |[39m     [36mconst[39m actual [33m=[39m fromBase64Url(s64)[33m;[39m
+ [90m 73 |[39m     [36mreturn[39m timingSafeEqual(expected[33m,[39m actual)[33m;[39m[0m
+Next.js build worker exited with code: 1 and signal: null

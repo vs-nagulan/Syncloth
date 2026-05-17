@@ -1,0 +1,35 @@
+
+> syncloth@0.1.0 build
+> next build
+
+   ▲ Next.js 15.5.18
+   - Environments: .env.local
+
+   Creating an optimized production build ...
+Failed to compile.
+
+./src/app/(site)/product/[slug]/page.tsx
+Error:   [31mx[0m Unterminated string constant
+    ,-[[36;1;4mD:\Syncloth\src\app\(site)\product\[slug]\page.tsx[0m:58:1]
+ [2m55[0m |             />
+ [2m56[0m |           ) : (
+ [2m57[0m |             <div className="flex h-full flex-col items-center justify-center p-8 text-center">
+ [2m58[0m |               <p className="font-[
+    : [35;1m                           ^^^^^^^[0m
+    `----
+  [31mx[0m Unexpected eof
+    ,-[[36;1;4mD:\Syncloth\src\app\(site)\product\[slug]\page.tsx[0m:58:1]
+ [2m55[0m |             />
+ [2m56[0m |           ) : (
+ [2m57[0m |             <div className="flex h-full flex-col items-center justify-center p-8 text-center">
+ [2m58[0m |               <p className="font-[
+    `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./src/app/(site)/product/[slug]/page.tsx
+
+
+> Build failed because of webpack errors

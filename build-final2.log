@@ -1,0 +1,31 @@
+
+> syncloth@0.1.0 build
+> next build
+
+   ▲ Next.js 15.5.18
+   - Environments: .env.local
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 6.1s
+   Linting and checking validity of types ...
+
+./src/components/product-card.tsx
+18:13  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./src/lib/supabase/middleware.ts
+27:12  Warning: 'error' is defined but never used.  @typescript-eslint/no-unused-vars
+
+info  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/app/api-reference/config/eslint#disabling-rules
+Failed to compile.
+
+./src/app/api/admin/product-image/route.ts:52:29
+Type error: Property 'error' does not exist on type '{ data: { publicUrl: string; }; }'.
+
+[0m [90m 50 |[39m   }
+ [90m 51 |[39m
+[31m[1m>[22m[39m[90m 52 |[39m   [36mconst[39m { data[33m:[39m publicData[33m,[39m error[33m:[39m publicUrlError } [33m=[39m sb[33m.[39mstorage
+ [90m    |[39m                             [31m[1m^[22m[39m
+ [90m 53 |[39m     [33m.[39m[36mfrom[39m([33mBUCKET_NAME[39m)
+ [90m 54 |[39m     [33m.[39mgetPublicUrl(path)[33m;[39m
+ [90m 55 |[39m[0m
+Next.js build worker exited with code: 1 and signal: null

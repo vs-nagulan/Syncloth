@@ -1,0 +1,31 @@
+
+> syncloth@0.1.0 build
+> next build
+
+   ▲ Next.js 15.5.18
+   - Environments: .env.local
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 5.4s
+   Linting and checking validity of types ...
+
+./src/components/product-card.tsx
+18:13  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./src/lib/supabase/middleware.ts
+27:12  Warning: 'error' is defined but never used.  @typescript-eslint/no-unused-vars
+
+info  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/app/api-reference/config/eslint#disabling-rules
+Failed to compile.
+
+./src/lib/supabase/middleware.ts:19:16
+Type error: Parameter 'cookiesToSet' implicitly has an 'any' type.
+
+[0m [90m 17 |[39m           [36mreturn[39m request[33m.[39mcookies[33m.[39mgetAll()[33m;[39m
+ [90m 18 |[39m         }[33m,[39m
+[31m[1m>[22m[39m[90m 19 |[39m         setAll(cookiesToSet) {
+ [90m    |[39m                [31m[1m^[22m[39m
+ [90m 20 |[39m           response [33m=[39m [33mNextResponse[39m[33m.[39mnext({ request })[33m;[39m
+ [90m 21 |[39m           cookiesToSet[33m.[39mforEach(({ name[33m,[39m value[33m,[39m options }) [33m=>[39m {
+ [90m 22 |[39m             response[33m.[39mcookies[33m.[39m[36mset[39m(name[33m,[39m value[33m,[39m options)[33m;[39m[0m
+Next.js build worker exited with code: 1 and signal: null

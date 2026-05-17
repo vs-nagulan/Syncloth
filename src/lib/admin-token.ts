@@ -66,8 +66,12 @@ export async function verifyAdminSession(
     if (typeof payload.exp !== "number" || payload.exp < Date.now())
       return false;
     const key = await hmacKey(secret);
+    const payloadBuffer = payloadBytes.buffer.slice(
+      payloadBytes.byteOffset,
+      payloadBytes.byteOffset + payloadBytes.byteLength,
+    ) as ArrayBuffer;
     const expected = new Uint8Array(
-      await crypto.subtle.sign("HMAC", key, payloadBytes),
+      await crypto.subtle.sign("HMAC", key, payloadBuffer),
     );
     const actual = fromBase64Url(s64);
     return timingSafeEqual(expected, actual);

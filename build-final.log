@@ -1,0 +1,40 @@
+
+> syncloth@0.1.0 build
+> next build
+
+   ▲ Next.js 15.5.18
+   - Environments: .env.local
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 5.3s
+   Linting and checking validity of types ...
+
+./src/components/product-card.tsx
+18:13  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./src/lib/supabase/middleware.ts
+27:12  Warning: 'error' is defined but never used.  @typescript-eslint/no-unused-vars
+
+info  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/app/api-reference/config/eslint#disabling-rules
+Failed to compile.
+
+.next/types/validator.ts:216:31
+Type error: Type 'typeof import("D:/Syncloth/src/app/admin/debug/page")' does not satisfy the constraint 'AppPageConfig<"/admin/debug">'.
+  Types of property 'default' are incompatible.
+    Type '() => Promise<Response | Element>' is not assignable to type 'ComponentType<any> | ((props: any) => void | ReactNode | Promise<void> | Promise<ReactNode>)'.
+      Type '() => Promise<Response | Element>' is not assignable to type 'FunctionComponent<any>'.
+        Type 'Promise<Response | Element>' is not assignable to type 'ReactNode | Promise<ReactNode>'.
+          Type 'Promise<Response | Element>' is not assignable to type 'ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<...> | Promise<...>'.
+            Type 'Promise<Response | Element>' is not assignable to type 'Promise<AwaitedReactNode>'.
+              Type 'Response | Element' is not assignable to type 'AwaitedReactNode'.
+                Type 'Response' is not assignable to type 'AwaitedReactNode'.
+                  Type 'Response' is missing the following properties from type 'ReactElement<unknown, string | JSXElementConstructor<any>>': props, key
+
+[0m [90m 214 |[39m   type __IsExpected[33m<[39m[33mSpecific[39m [36mextends[39m [33mAppPageConfig[39m[33m<[39m[32m"/admin/debug"[39m[33m>>[39m [33m=[39m [33mSpecific[39m
+ [90m 215 |[39m   [36mconst[39m handler [33m=[39m {} [36mas[39m [36mtypeof[39m [36mimport[39m([32m"../../src/app/admin/debug/page.js"[39m)
+[31m[1m>[22m[39m[90m 216 |[39m   type __Check [33m=[39m __IsExpected[33m<[39m[36mtypeof[39m handler[33m>[39m
+ [90m     |[39m                               [31m[1m^[22m[39m
+ [90m 217 |[39m   [90m// @ts-ignore[39m
+ [90m 218 |[39m   type __Unused [33m=[39m __Check
+ [90m 219 |[39m }[0m
+Next.js build worker exited with code: 1 and signal: null

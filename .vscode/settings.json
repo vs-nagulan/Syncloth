@@ -1,0 +1,8 @@
+{
+    "chat.tools.terminal.autoApprove": {
+        "/^cmd /c \"cd /d D:\\\\Syncloth && if exist build\\.log \\(echo EXISTS && dir build\\.log\\) else echo NO_LOG\"$/": {
+            "approve": true,
+            "matchCommandLine": true
+        }
+    }
+}

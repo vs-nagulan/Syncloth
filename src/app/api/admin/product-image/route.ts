@@ -49,16 +49,14 @@ export async function POST(request: Request) {
     );
   }
 
-  const { data: publicData, error: publicUrlError } = sb.storage
-    .from(BUCKET_NAME)
-    .getPublicUrl(path);
+  const publicUrlResult = sb.storage.from(BUCKET_NAME).getPublicUrl(path);
 
-  if (publicUrlError || !publicData?.publicUrl) {
+  if (!publicUrlResult?.data?.publicUrl) {
     return NextResponse.json(
-      { error: publicUrlError?.message || "Failed to generate public URL" },
+      { error: "Failed to generate public URL" },
       { status: 500 },
     );
   }
 
-  return NextResponse.json({ url: publicData.publicUrl });
+  return NextResponse.json({ url: publicUrlResult.data.publicUrl });
 }
