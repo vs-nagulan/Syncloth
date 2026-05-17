@@ -2,12 +2,14 @@
 
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
+import Link from "next/link";
 import { signInWithGoogle } from "@/lib/auth/client";
 
 function AdminLoginForm() {
   const searchParams = useSearchParams();
   const from = searchParams.get("from") || "/admin/dashboard";
   const errParam = searchParams.get("error");
+
   const [error, setError] = useState<string | null>(
     errParam === "supabase_config"
       ? "Server missing Supabase config."
@@ -17,6 +19,7 @@ function AdminLoginForm() {
       ? "Access denied. Admin role required."
       : null,
   );
+
   const [loading, setLoading] = useState(false);
 
   async function handleAdminSignIn() {
@@ -24,6 +27,7 @@ function AdminLoginForm() {
     setError(null);
 
     const { error } = await signInWithGoogle(from, true);
+
     if (error) {
       setError(error.message);
       setLoading(false);
@@ -35,14 +39,17 @@ function AdminLoginForm() {
       <h1 className="font-[family-name:var(--font-poppins)] text-2xl font-bold text-foreground">
         Admin sign-in
       </h1>
+
       <p className="mt-2 text-sm text-muted">
         Google OAuth required. Admin role needed for access.
       </p>
+
       {error && (
         <p className="mt-4 rounded-lg border border-brand-red/30 bg-brand-red/10 px-3 py-2 text-sm text-brand-red">
           {error}
         </p>
       )}
+
       <div className="mt-8 space-y-4">
         <button
           type="button"
@@ -53,10 +60,11 @@ function AdminLoginForm() {
           {loading ? "Redirecting…" : "Continue with Google"}
         </button>
       </div>
+
       <p className="mt-8 text-center text-xs text-muted">
-        <a href="/" className="text-accent hover:underline">
+        <Link href="/" className="text-accent hover:underline">
           ← Back to store
-        </a>
+        </Link>
       </p>
     </div>
   );
