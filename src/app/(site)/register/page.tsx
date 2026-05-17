@@ -1,6 +1,4 @@
-"use client";
-
-
+import type { Metadata } from "next";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
@@ -30,29 +28,13 @@ export default function RegisterPage() {
 
   return (
     <div className="mx-auto flex min-h-[60vh] max-w-md flex-col justify-center px-4 py-14 sm:px-6">
-      <h1 className="font-[family-name:var(--font-poppins)] text-3xl font-bold text-foreground">
-        Create account
-      </h1>
-      <p className="mt-2 text-sm text-muted">
-        Sign up with Google to manage your profile, wishlist, and order history.
-      </p>
-      {error && <p className="mt-4 text-sm text-red-600">{error}</p>}
-      <div className="mt-8 space-y-3">
-        <button
-          type="button"
-          onClick={handleGoogleSignUp}
-          disabled={loading}
-          className="w-full rounded-xl border border-border bg-page py-3 text-sm font-medium text-foreground shadow-sm disabled:opacity-50"
-        >
-          {loading ? "Redirecting…" : "Sign up with Google"}
-        </button>
-      </div>
-      <p className="mt-8 text-center text-sm text-muted">
-        Already have an account?{" "}
-        <Link href="/login" className="text-accent hover:underline">
-          Log in
-        </Link>
-      </p>
+      <h1 className="text-3xl font-bold">Create account</h1>
+
+      {error && <p className="mt-4 text-red-600">{error}</p>}
+
+      <button onClick={handleGoogleSignUp}>
+        Sign up with Google
+      </button>
     </div>
   );
 }
