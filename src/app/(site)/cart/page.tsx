@@ -1,5 +1,4 @@
 "use client";
-import type { Metadata } from "next";
 import Link from "next/link";
 import { useCart } from "@/lib/cart-context";
 import { formatINR } from "@/lib/format";
